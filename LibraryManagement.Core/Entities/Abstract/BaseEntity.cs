@@ -6,7 +6,7 @@ namespace LibraryManagement.Core.Entities.Abstract
 {
     public abstract class BaseEntity : IEntity
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         public bool IsDeleted { get; set; }
     }
 }
