@@ -1,22 +1,20 @@
-﻿using LibraryManagement.Core.Entities.Abstract;
-using LibraryManagement.Core.Enums;
+﻿using LibraryManagement.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryManagement.Core.Entities.Concrete
+namespace LibraryManagement.Core.DTOs
 {
-    public class User : BaseEntity
+    public class UserRegisterDto
     {
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string EMail { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public DateOnly BirthdayDate { get; set; }
-        public UserRole Role { get; set; } 
-        public Gender Gender { get; set; } 
+        public Gender Gender { get; set; }
         public string Country { get; set; } = string.Empty;
         public string IdentityCardNo { get; set; } = string.Empty;
-        public bool IsActive { get; set; }
+
     }
 }
