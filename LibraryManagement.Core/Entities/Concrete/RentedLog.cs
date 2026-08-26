@@ -13,6 +13,8 @@ namespace LibraryManagement.Core.Entities.Concrete
         public DateOnly StartDate { get; set; }
         public DateOnly DueDate { get; set; }
         public DateOnly? ReturnDate { get; set; }
-        public RentalStatus Status { get; set; } 
+        public RentalStatus Status { get; set; }
+
+
     }
 }
