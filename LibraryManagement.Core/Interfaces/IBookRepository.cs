@@ -10,7 +10,7 @@ namespace LibraryManagement.Core.Interfaces
     {
         Task<IReadOnlyList<Book>> SearchByTitleAsync(string title);
 
-        Task<IReadOnlyList<Book>> GetBooksByAuthorAsync(string auth);
+        Task<IReadOnlyList<Book>> GetBooksByAuthorAsync(string writer);
 
         Task<IReadOnlyList<Book>> GetBooksByCategoryAsync(string category);
 

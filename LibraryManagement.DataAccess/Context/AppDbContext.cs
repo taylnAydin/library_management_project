@@ -44,7 +44,7 @@ namespace LibraryManagement.DataAccess.Context
                 entity.ToTable("books");
                 entity.HasKey(b => b.Id);
                 entity.Property(b => b.Id).HasColumnName("id");
-                entity.Property(b => b.Name).HasColumnName("name");
+                entity.Property(b => b.Title).HasColumnName("title");
                 entity.Property(b => b.Writer).HasColumnName("writer");
                 entity.Property(b=> b.Category).HasColumnName("category");
                 entity.Property(b => b.Stock).HasColumnName("stock");

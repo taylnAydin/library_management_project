@@ -15,6 +15,7 @@ namespace LibraryManagement.Core.Entities.Concrete
         public DateOnly? ReturnDate { get; set; }
         public RentalStatus Status { get; set; }
 
-
+        public User User { get; set; } = null!;
+        public Book Book { get; set; } = null!;
     }
 }

@@ -12,7 +12,9 @@ namespace LibraryManagement.Core.Interfaces
      
         Task<User?> GetByIdentificationNumberAsync(string identificationNumber);
 
-      
-        Task<User?> GetUserWithRentalsAsync(int userId);
+
+        Task<User?> GetUserWithRentalsByIdentityCardNoAsync(string identityCardNo); // niye soru isareti
+
+        Task<IReadOnlyList<User>> SearchByFullNameAsync(string fullName);
     }
 }
