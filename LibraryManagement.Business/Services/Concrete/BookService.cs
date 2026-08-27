@@ -13,7 +13,7 @@ namespace LibraryManagement.Business.Services.Concrete
     {   // niye private
         private readonly IBookRepository _bookRepository;
 
-        // consturcor injection
+        // consturcor injection niye interfaceden türettik
         private BookService(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
