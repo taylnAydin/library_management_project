@@ -16,8 +16,8 @@ namespace LibraryManagement.DataAccess
         // niye Iservice niye this niye ikinci parametre Iconfiguration
          public static IServiceCollection AddDataAccessService(this IServiceCollection services, IConfiguration configuration)
         {
-
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            //null dönmesin diye
+            var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection bulunamadı.");
 
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
@@ -25,7 +25,9 @@ namespace LibraryManagement.DataAccess
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
-            services.AddScoped<IRentalRepository, RentedLogRepository>();
+            services.AddScoped<IRentedLogRepository, RentedLogRepository>();
+
+            return services;
         }
 
     }

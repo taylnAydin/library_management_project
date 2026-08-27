@@ -8,7 +8,7 @@ using System.Text;
 
 namespace LibraryManagement.DataAccess.Repository
 {
-    public class RentedLogRepository : GenericRepository<RentedLog>, IRentalRepository
+    public class RentedLogRepository : GenericRepository<RentedLog>, IRentedLogRepository
     {
         public RentedLogRepository(AppDbContext context):base(context)
         { }

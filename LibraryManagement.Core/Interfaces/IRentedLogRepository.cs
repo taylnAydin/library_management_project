@@ -4,7 +4,7 @@ using LibraryManagement.Core.Entities.Concrete;
 
 namespace LibraryManagement.Core.Interfaces
 {
-    public interface IRentalRepository : IGenericRepository<RentedLog>
+    public interface IRentedLogRepository : IGenericRepository<RentedLog>
     {
 
         Task<IReadOnlyList<RentedLog>> GetAllWithDetailsAsync();
