@@ -47,6 +47,6 @@ namespace LibraryManagement.DataAccess.Repository
                 .Where(b => b.Title.ToLower().Contains(title.ToLower()))
                 .ToListAsync();
         }
-
+        //unit of work ne niye kullanmadik
     }
 }

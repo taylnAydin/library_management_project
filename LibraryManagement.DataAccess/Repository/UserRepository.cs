@@ -33,6 +33,7 @@ namespace LibraryManagement.DataAccess.Repository
             if (string.IsNullOrWhiteSpace(identityCardNo))
                 throw new ArgumentException("Identity card number cannot be empty.", nameof(identityCardNo));
 
+            // bu kisim
             return await _dbSet
                 .Include(u => u.RentedLogs)
                     .ThenInclude(r => r.Book)
@@ -46,7 +47,7 @@ namespace LibraryManagement.DataAccess.Repository
 
             string term = fullName.Trim().ToLower();
 
-            // Ad + Soyad birleşimini küçük harfe çevirip arama yapar
+            // bu kisim
             return await _dbSet
                 .Where(u => (u.Name + " " + u.Surname).ToLower().Contains(term))
                 .ToListAsync();
