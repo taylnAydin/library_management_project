@@ -8,8 +8,9 @@ namespace LibraryManagement.Core.Interfaces
     {
 
         Task<IReadOnlyList<RentedLog>> GetAllWithDetailsAsync();
+        Task<IReadOnlyList<RentedLog>> GetLogsByUserIdWithDetailsAsync(int userId);
 
 
-      
+
     }
 }

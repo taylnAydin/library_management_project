@@ -10,11 +10,11 @@ using System.Xml;
 namespace LibraryManagement.Business.Services.Concrete
 {
     public class BookService : IBookService
-    {
+    {   // niye private
         private readonly IBookRepository _bookRepository;
 
         // consturcor injection
-        public BookService(IBookRepository bookRepository)
+        private BookService(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }

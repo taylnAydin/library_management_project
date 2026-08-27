@@ -14,9 +14,22 @@ namespace LibraryManagement.DataAccess.Repository
         { }
         public async Task<IReadOnlyList<RentedLog>> GetAllWithDetailsAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet
+                .Include(r => r.User)
+                .Include(r => r.Book)
+                .ToListAsync();
+        }
+         
+        //bak
+        public async Task<IReadOnlyList<RentedLog>> GetLogsByUserIdWithDetailsAsync(int userId)
+        {
+            return await _dbSet
+                .Where(r => r.UserId == userId && !r.IsDeleted)
+                .Include(r => r.User)
+                .Include(r => r.Book)
+                .ToListAsync();
         }
 
-      
+
     }
 }
