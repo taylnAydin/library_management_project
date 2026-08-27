@@ -45,6 +45,7 @@ namespace LibraryManagement.DataAccess.Repository
             return await _dbSet.FindAsync(id);
         }
 
+        // update delete niye değil
         public void Update(T entity)
         {
             _dbSet.Update(entity);

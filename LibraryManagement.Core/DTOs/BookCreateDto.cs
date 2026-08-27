@@ -6,7 +6,7 @@ namespace LibraryManagement.Core.DTOs
 {
     public class BookCreateDto
     {
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
 
         public string Writer { get; set; } = string.Empty;
 
