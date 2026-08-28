@@ -1,6 +1,6 @@
 ﻿using LibraryManagement.Core.Interfaces;
 using LibraryManagement.DataAccess.Context;
-using LibraryManagement.DataAccess.Repository;
+using LibraryManagement.DataAccess.Repository.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

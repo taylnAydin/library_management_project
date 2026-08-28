@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryManagement.DataAccess.Repository
+namespace LibraryManagement.DataAccess.Repository.Concrete
 {
     public class RentedLogRepository : GenericRepository<RentedLog>, IRentedLogRepository
     {

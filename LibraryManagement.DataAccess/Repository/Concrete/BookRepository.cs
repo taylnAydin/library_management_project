@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LibraryManagement.DataAccess.Repository
+namespace LibraryManagement.DataAccess.Repository.Concrete
 {
     public class BookRepository : GenericRepository<Book>, IBookRepository
     {

@@ -7,7 +7,7 @@ using LibraryManagement.Core.Interfaces;
 using LibraryManagement.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagement.DataAccess.Repository
+namespace LibraryManagement.DataAccess.Repository.Concrete
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
