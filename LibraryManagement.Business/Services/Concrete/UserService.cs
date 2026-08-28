@@ -15,6 +15,7 @@ namespace LibraryManagement.Business.Services.Concrete
     {
         private readonly IUserRepository _userRepository;
 
+        // niye private niye public niye readonly
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
