@@ -119,8 +119,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new InvalidOperationException($"Book '{book.Title}' is out of stock or not available for rent.");
             }
 
-            try
-            {
+           
                 // 3. Kitap Stoğunu Güncelle
                 book.Stock -= 1;
                
@@ -141,11 +140,8 @@ namespace LibraryManagement.Business.Services.Concrete
                 await _rentedLogRepository.SaveChangesAsync();
 
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"An error occurred while renting the book: {ex.Message}", ex);
-            }
+            
+          
         }
         public async Task<bool> ReturnBookAsync(int rentedLogId)
         {
@@ -174,8 +170,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new KeyNotFoundException($"Associated book with ID {rentedLog.BookId} not found.");
             }
 
-            try
-            {
+            
                 // Kitap stoğunu 1 artırıyoruz (IsAvailable otomatik true olacaktır)
                 book.Stock += 1;
                 _bookRepository.Update(book);
@@ -187,11 +182,8 @@ namespace LibraryManagement.Business.Services.Concrete
                 await _rentedLogRepository.SaveChangesAsync();
 
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"An error occurred while returning the book: {ex.Message}", ex);
-            }
+            
+
         }
     }
 }

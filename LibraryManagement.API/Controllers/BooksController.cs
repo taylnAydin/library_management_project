@@ -36,35 +36,23 @@ namespace LibraryManagement.API.Controllers
         {
             var result = await _bookService.AddAsync(dto);
 
-             if (result)
-            {
-                return Ok(result);
-            }
-            return BadRequest();
+
+
+            return StatusCode(StatusCodes.Status201Created, result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, BookUpdateDto dto)
         {
             var result = await _bookService.UpdateAsync(id, dto);
-            if (result)
-            {
-                return Ok(result);
-            }
-            return BadRequest();
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _bookService.DeleteAsync(id);
-
-            if (result)
-            {
-                return Ok(result);
-            }
-            return BadRequest();
+            return Ok(result);
         }
     }
 }

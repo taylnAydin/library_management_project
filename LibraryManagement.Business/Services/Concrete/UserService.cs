@@ -30,16 +30,15 @@ namespace LibraryManagement.Business.Services.Concrete
 
             var user = await _userRepository.GetByIdAsync(id);
 
-            if(user == null) throw new InvalidOperationException($"User with id {id} not found.");
+            if(user == null) throw new KeyNotFoundException($"User with id {id} not found.");
 
 
             if (user.IsDeleted)
             {
-                throw new InvalidOperationException($"user with ID {id} is already deleted.");
-            }
+                    throw new KeyNotFoundException($"User with id {id} not found.");
+             }
 
-            try
-            {
+           
                 user.IsDeleted = true;
                 
 
@@ -47,11 +46,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 _userRepository.Update(user);
                 await _userRepository.SaveChangesAsync();
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"There is a problem while deleting the user: {ex.Message}", ex);
-            }
+            
         }
 
         public async Task<List<UserListDto>> GetAllAsync()
@@ -60,7 +55,7 @@ namespace LibraryManagement.Business.Services.Concrete
 
             if (users == null || users.Count == 0)
             {
-                throw new InvalidOperationException("No users found.");
+                return new List<UserListDto>(); // new ve reference kullanimina bi bak
             }
 
             var userDtos = users.Where(u => !u.IsDeleted)
@@ -92,7 +87,8 @@ namespace LibraryManagement.Business.Services.Concrete
 
             if (user.IsDeleted)
             {
-                throw new InvalidOperationException($"User with ID {id} is deleted.");
+
+                throw new KeyNotFoundException($"User with id {id} not found.");
             }
 
             return new UserDetailDto{
@@ -112,7 +108,7 @@ namespace LibraryManagement.Business.Services.Concrete
 
 
 
-        public async Task<UserDetailDto?> LoginAsync(UserLoginDto dto)
+        public async Task<bool> LoginAsync(UserLoginDto dto)
         {
             var user = await _userRepository.GetByEmailAsync(dto.Email);
 
@@ -136,22 +132,9 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new UnauthorizedAccessException("Invalid email or password.");
             }
 
-            var userDetailDto = new UserDetailDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                Email = user.Email,
-                Phone = user.Phone,
-                IdentityCardNo = user.IdentityCardNo,
-                BirthdayDate = user.BirthdayDate,
-                Country = user.Country,
-                Gender = user.Gender,
-                Role = user.Role,
-                IsActive = user.IsActive
-            };
+           
 
-            return userDetailDto;
+            return true;
         }
 
         public async Task<bool> RegisterAsync(UserRegisterDto dto)
@@ -217,23 +200,22 @@ namespace LibraryManagement.Business.Services.Concrete
             }
 
             if (dto == null) { 
-                throw new ArgumentException("UserUpdateDto cannot be null.");
+                throw new ArgumentNullException("UserUpdateDto cannot be null."); //arguemnnull argumen extreipn turler
             }
 
             var user = await _userRepository.GetByIdAsync(id);
 
             if (user == null) 
             {
-                throw new InvalidOperationException($"User with id {id} not found.");
+                throw new KeyNotFoundException($"User with id {id} not found.");
             }
 
             if(user.IsDeleted)
             {
-                throw new InvalidOperationException($"User with id {id} is deleted.");
+                throw new KeyNotFoundException($"User with id {id} not found.");
             }
 
-            try
-            {
+          
                 user.Name = dto.Name;
                 user.Surname = dto.Surname;
                 user.Email = dto.Email;
@@ -246,12 +228,8 @@ namespace LibraryManagement.Business.Services.Concrete
                 _userRepository.Update(user);
                 await _userRepository.SaveChangesAsync();
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(
-                    $"An error occurred while updating the user: {ex.Message}", ex);
-            }
+            
+           
         }
     }
 }

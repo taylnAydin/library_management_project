@@ -50,17 +50,14 @@ namespace LibraryManagement.Business.Services.Concrete
             //dateonly kismina bak
             var book = new Book {  Title = dto.Title, Writer = dto.Writer, Category = dto.Category,Stock =dto.Stock, PublishDate=dto.PublishDate, Publisher=dto.Publisher, AddedDate=DateOnly.FromDateTime(DateTime.UtcNow), Pages=dto.Pages};
 
-            try
-            {
+
                 await _bookRepository.AddAsync(book);
                 await _bookRepository.SaveChangesAsync();
                 return true;
-            }
-            catch (Exception ex)
-            {
-                // Veritabanı hatasını yakalayıp kendi tanımladığın özel hata mesajıyla yukarı fırlatırsın
-                throw new InvalidOperationException($"The Book could not be added to library: {ex.Message}", ex);
-            }
+          
+            
+            
+            
 
         }
 
@@ -79,11 +76,10 @@ namespace LibraryManagement.Business.Services.Concrete
 
             if (book.IsDeleted)
             {
-                throw new InvalidOperationException($"Book with ID {id} is already deleted.");
+                throw new KeyNotFoundException($"Book with ID {id} was not found.");
             }
 
-            try
-            {
+            
                 // Soft delete: Veriyi kaybetmiyoruz, pasife çekiyoruz
                 book.IsDeleted = true;
                 
@@ -91,11 +87,8 @@ namespace LibraryManagement.Business.Services.Concrete
                 _bookRepository.Update(book);
                 await _bookRepository.SaveChangesAsync();
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"There is a problem while deleting the book: {ex.Message}", ex);
-            }
+           
+          
         }
 
         public async Task<List<BookDetailDto>> GetAllAsync()
@@ -105,7 +98,7 @@ namespace LibraryManagement.Business.Services.Concrete
 
             if (books == null || !books.Any())
             {
-                throw new InvalidOperationException("No books found.");
+                return new List<BookDetailDto>();
             }
             // buraya bak
             var bookDtos = books
@@ -146,7 +139,7 @@ namespace LibraryManagement.Business.Services.Concrete
 
             if (book.IsDeleted)
             {
-                throw new InvalidOperationException($"Book with ID {id} is deleted.");
+                throw new KeyNotFoundException($"Book with ID {id} was not found.");
             }
 
             return new BookDetailDto
@@ -205,11 +198,11 @@ namespace LibraryManagement.Business.Services.Concrete
 
             if (book.IsDeleted)
             {
-                throw new InvalidOperationException($"Book with ID {id} is deleted and cannot be updated.");
+                throw new KeyNotFoundException($"Book with ID {id} was not found.");
             }
 
-            try
-            {
+           
+            
                 book.Title = dto.Title;
                 book.Writer = dto.Writer;
                 book.Category = dto.Category;
@@ -222,11 +215,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 _bookRepository.Update(book);
                 await _bookRepository.SaveChangesAsync();
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"An error occurred while updating the book: {ex.Message}", ex);
-            }
+          
         }
     }
 }

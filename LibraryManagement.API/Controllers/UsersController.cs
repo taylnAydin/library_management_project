@@ -37,23 +37,13 @@ namespace LibraryManagement.API.Controllers
         public async Task<IActionResult> Update(int id, UserUpdateDto dto)
         {
             var result = await _userService.UpdateAsync(id, dto);
-            if (result)
-            {
-                return Ok(result);
-            }
-            return BadRequest();
+            return Ok(result); // niye reutn oik result
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
             var result = await _userService.DeleteAsync(id);
-             if (result)
-            {
-                return Ok(result);
-            }
-             return BadRequest();
-
-        
+             return Ok(result);
         }
 
         [HttpGet("search")]

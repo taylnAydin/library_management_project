@@ -29,12 +29,7 @@ namespace LibraryManagement.API.Controllers
         {
             var result = await _userService.RegisterAsync(dto);
 
-            if (result)
-            {
-
-                return StatusCode(StatusCodes.Status201Created); // ne bu ?
-            }
-            return BadRequest();
+            return StatusCode(StatusCodes.Status201Created, result);
         }
     }
 }

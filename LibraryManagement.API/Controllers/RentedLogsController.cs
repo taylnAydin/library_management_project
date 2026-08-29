@@ -35,23 +35,15 @@ namespace LibraryManagement.API.Controllers
         public async Task<IActionResult> RentBook(RentalCreateDto dto)
         {
             var  result = await _logService.RentBookAsync(dto);
-            if (result)
-            {
-                return Ok(result);
-            }
-            return BadRequest();
+            return StatusCode(StatusCodes.Status201Created, result); // class parametre anlamadim
         }
 
         //niye return pathi
         [HttpPut("return/{rentedLogId}")]
         public async Task<IActionResult> ReturnBook(int rentedLogId) {
               var result = await _logService.ReturnBookAsync(rentedLogId);
-            if (result) { 
-              return Ok(result);
-            }
+            return Ok(result);
 
-            return BadRequest();
-            
         }
 
     }

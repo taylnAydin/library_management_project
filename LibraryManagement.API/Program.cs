@@ -1,3 +1,4 @@
+using LibraryManagement.API.Middleware;
 using LibraryManagement.Business;
 using LibraryManagement.DataAccess;
 
@@ -13,8 +14,10 @@ builder.Services.AddDataAccessService(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // generic class niye parantez var consturcot mic agirio
 
 var app = builder.Build();
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
