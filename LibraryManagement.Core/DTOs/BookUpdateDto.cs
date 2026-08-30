@@ -6,7 +6,7 @@ namespace LibraryManagement.Core.DTOs
 {
     public class BookUpdateDto
     {
-        public int Id { get; set; }
+       
         public string Title { get; set; } = string.Empty;
         public string Writer { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;

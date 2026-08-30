@@ -27,15 +27,15 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new ArgumentNullException("dto cannot be null");
             }
             //null ve whitespace farki
-            if (string.IsNullOrWhiteSpace(dto.Title)) throw new ArgumentNullException("Title cannot be null");
+            if (string.IsNullOrWhiteSpace(dto.Title)) throw new ArgumentException("Title cannot be null");
 
             if (dto.Title.Length > 150) throw new ArgumentException("Title length cannot be greater than 150 characters");
 
-            if (string.IsNullOrWhiteSpace(dto.Writer)) throw new ArgumentNullException("Writer cannot be null");
+            if (string.IsNullOrWhiteSpace(dto.Writer)) throw new ArgumentException("Writer cannot be null");
 
             if (dto.Writer.Length > 100) throw new ArgumentException("Writer length cannot be greater than 100 characters");
 
-            if (string.IsNullOrWhiteSpace(dto.Category)) throw new ArgumentNullException("Category cannot be null");
+            if (string.IsNullOrWhiteSpace(dto.Category)) throw new ArgumentException("Category cannot be null");
 
             if (dto.Category.Length > 50) throw new ArgumentException("Category length cannot be greater than 50 characters");
 

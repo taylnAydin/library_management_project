@@ -4,6 +4,7 @@ using LibraryManagement.Business;
 using LibraryManagement.DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json.Serialization;
 
 
 
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
    
 builder.Services.AddBusinessServices();
+
 builder.Services.AddDataAccessService(builder.Configuration);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
   options =>
@@ -26,15 +28,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
           IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not found"))) ,
       };
   }
- ); 
-   
+ );
+
+
+builder.Services.AddAuthorization();
 // Add services to the container.
 
-builder.Services.AddControllers();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // generic class niye parantez var consturcot mic agirio
 builder.Services.AddApiServices();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 
 var app = builder.Build();

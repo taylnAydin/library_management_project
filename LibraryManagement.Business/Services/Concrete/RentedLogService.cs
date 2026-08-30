@@ -119,9 +119,16 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new InvalidOperationException($"Book '{book.Title}' is out of stock or not available for rent.");
             }
 
-           
-                // 3. Kitap Stoğunu Güncelle
-                book.Stock -= 1;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            if (dto.StartDate < today)
+            {
+                throw new ArgumentException("Start date cannot be earlier than today.");
+            }
+
+
+            // 3. Kitap Stoğunu Güncelle
+            book.Stock -= 1;
                
                 _bookRepository.Update(book);
 
@@ -130,8 +137,8 @@ namespace LibraryManagement.Business.Services.Concrete
                 {
                     UserId = dto.UserId,
                     BookId = dto.BookId,
-                    StartDate = DateOnly.FromDateTime(DateTime.UtcNow),
-                    DueDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(15)), // Standart 15 gün kiralama süresi
+                    StartDate = dto.StartDate, // Başlangıç tarihi olarak bugünün tarihi
+                    DueDate = dto.StartDate.AddDays(14), // Standart 14 gün kiralama süresi
                     ReturnDate = null,
                     Status = RentalStatus.RENTED
                 };
@@ -143,7 +150,7 @@ namespace LibraryManagement.Business.Services.Concrete
             
           
         }
-        public async Task<bool> ReturnBookAsync(int rentedLogId)
+        public async Task<ReturnBookResultDto> ReturnBookAsync(int rentedLogId)
         {
             if (rentedLogId <= 0)
             {
@@ -163,6 +170,13 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new InvalidOperationException("This book has already been returned.");
             }
 
+            var returnDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            if (returnDate < rentedLog.StartDate)
+            {
+                throw new InvalidOperationException("Book cannot be returned before the rental start date.");
+            }
+
             // 3. İlgili Kitabı Getir ve Stoğunu Artır
             var book = await _bookRepository.GetByIdAsync(rentedLog.BookId);
             if (book == null || book.IsDeleted)
@@ -176,13 +190,35 @@ namespace LibraryManagement.Business.Services.Concrete
                 _bookRepository.Update(book);
 
                 // Kiralama kaydını kapatıyoruz
-                rentedLog.ReturnDate = DateOnly.FromDateTime(DateTime.UtcNow);
-                rentedLog.Status = RentalStatus.RETURNED;
+                rentedLog.ReturnDate = returnDate;
+            rentedLog.Status = RentalStatus.RETURNED;
                 _rentedLogRepository.Update(rentedLog);
                 await _rentedLogRepository.SaveChangesAsync();
 
-                return true;
             
+
+            int lateDays = 0;
+
+            if (returnDate > rentedLog.DueDate)
+
+            {
+
+                lateDays = returnDate.DayNumber - rentedLog.DueDate.DayNumber;
+
+            }
+
+            return new ReturnBookResultDto
+
+            {
+
+                Success = true,
+
+                IsLate = lateDays > 0,
+
+                LateDays = lateDays
+
+            };
+
 
         }
     }

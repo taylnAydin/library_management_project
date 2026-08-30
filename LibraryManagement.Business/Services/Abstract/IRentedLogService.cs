@@ -9,6 +9,6 @@ namespace LibraryManagement.Business.Services.Abstract
         Task<List<RentalListDto>> GetAllAsync();
         Task<List<RentalDetailDto>> GetByUserIdAsync(int userId);
         Task<bool> RentBookAsync(RentalCreateDto dto);
-        Task<bool> ReturnBookAsync(int rentedLogId);
+        Task<ReturnBookResultDto> ReturnBookAsync(int rentedLogId);
     }
 }

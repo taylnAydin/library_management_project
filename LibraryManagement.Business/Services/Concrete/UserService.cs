@@ -110,6 +110,30 @@ namespace LibraryManagement.Business.Services.Concrete
 
         public async Task<UserLoginResultDto> LoginAsync(UserLoginDto dto)
         {
+            if (dto == null)
+
+            {
+
+                throw new ArgumentNullException("Dto cannot be null.");
+
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Email))
+
+            {
+
+                throw new ArgumentException("Email cannot be null or empty.");
+
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Password))
+
+            {
+
+                throw new ArgumentException("Password cannot be null or empty.");
+
+            }
+
             var user = await _userRepository.GetByEmailAsync(dto.Email);
 
             if (user == null)// burada kontrol ediyorum
@@ -138,9 +162,81 @@ namespace LibraryManagement.Business.Services.Concrete
         }
 
         public async Task<bool> RegisterMemberAsync(UserRegisterDto dto)
-
-            // niye try catch kullanmadık çünkü exception fır
         {
+            if (dto == null)
+            {
+                throw new ArgumentNullException("Dto cannot be null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Name))
+            {
+                throw new ArgumentException("Name cannot be null or empty.");
+            }
+
+            if (dto.Name.Length > 50)
+            {
+                throw new ArgumentException("Name cannot be greater than 50 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Surname))
+            {
+                throw new ArgumentException("Surname cannot be null or empty.");
+            }
+
+            if (dto.Surname.Length > 50)
+            {
+                throw new ArgumentException("Surname cannot be greater than 50 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Email))
+            {
+                throw new ArgumentException("Email cannot be null or empty.");
+            }
+
+            if (dto.Email.Length > 150)
+            {
+                throw new ArgumentException("Email cannot be greater than 150 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Password))
+            {
+                throw new ArgumentException("Password cannot be null or empty.");
+            }
+
+            if (dto.Password.Length > 255)
+            {
+                throw new ArgumentException("Password cannot be greater than 255 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.IdentityCardNo))
+            {
+                throw new ArgumentException("Identity card number cannot be null or empty.");
+            }
+
+            if (dto.IdentityCardNo.Length > 20)
+            {
+                throw new ArgumentException("Identity card number cannot be greater than 20 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Phone))
+            {
+                throw new ArgumentException("Phone cannot be null or empty.");
+            }
+
+            if (dto.Phone.Length > 20)
+            {
+                throw new ArgumentException("Phone cannot be greater than 20 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Country))
+            {
+                throw new ArgumentException("Country cannot be null or empty.");
+            }
+
+            if (dto.Country.Length > 50)
+            {
+                throw new ArgumentException("Country cannot be greater than 50 characters.");
+            }
             var user = await _userRepository.GetByEmailAsync(dto.Email);
             if(user != null) {
                 throw new InvalidOperationException("User with this email already exists.");

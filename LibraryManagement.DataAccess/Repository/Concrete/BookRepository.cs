@@ -17,8 +17,7 @@ namespace LibraryManagement.DataAccess.Repository.Concrete
 
         public async Task<IReadOnlyList<Book>> GetBooksByAuthorAsync(string writer)
         {
-            if (writer == null)
-                throw new ArgumentNullException(nameof(writer), "Author cannot be null");
+            
 
             return await _dbSet
                 .Where(b => b.Writer.ToLower().Contains(writer.ToLower()))
@@ -34,8 +33,7 @@ namespace LibraryManagement.DataAccess.Repository.Concrete
 
         public async Task<IReadOnlyList<Book>> GetBooksByCategoryAsync(string category)
         {
-            if (category == null)
-                throw new ArgumentException("Category cannot be null");
+           
 
             return await _dbSet
                 .Where(b => b.Category.ToLower().Contains(category.ToLower()))
@@ -44,8 +42,7 @@ namespace LibraryManagement.DataAccess.Repository.Concrete
 
         public async Task<IReadOnlyList<Book>> SearchByTitleAsync(string title)
         {
-            if (title == null)
-                throw new ArgumentNullException(nameof(title), "Title cannot be null.");
+            
 
             return await _dbSet
                 .Where(b => b.Title.ToLower().Contains(title.ToLower()))
