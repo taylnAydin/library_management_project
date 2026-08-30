@@ -137,7 +137,7 @@ namespace LibraryManagement.Business.Services.Concrete
 
         }
 
-        public async Task<bool> RegisterAsync(UserRegisterDto dto)
+        public async Task<bool> RegisterMemberAsync(UserRegisterDto dto)
 
             // niye try catch kullanmadık çünkü exception fır
         {
@@ -173,7 +173,44 @@ namespace LibraryManagement.Business.Services.Concrete
             await _userRepository.SaveChangesAsync();
             return true;
         }
+        public async Task<bool> RegisterLibrarianAsync(UserRegisterDto dto)
 
+        // niye try catch kullanmadık çünkü exception fır
+        {
+            var user = await _userRepository.GetByEmailAsync(dto.Email);
+            if (user != null)
+            {
+                throw new InvalidOperationException("User with this email already exists.");
+            }
+
+            var userByIdentityCard = await _userRepository.GetByIdentificationNumberAsync(dto.IdentityCardNo);
+            if (userByIdentityCard != null)
+            {
+                throw new InvalidOperationException("User with this identity card number already exists.");
+            }
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+
+
+            var newUser = new User
+            {
+                Name = dto.Name,
+                Surname = dto.Surname,
+                Email = dto.Email,
+                Phone = dto.Phone,
+                IdentityCardNo = dto.IdentityCardNo,
+                BirthdayDate = dto.BirthdayDate,
+                Country = dto.Country,
+                Gender = dto.Gender,
+                Password = hashedPassword,
+                Role = UserRole.LIBRARIAN,
+                IsActive = true
+            };
+
+            await _userRepository.AddAsync(newUser);
+            await _userRepository.SaveChangesAsync();
+            return true;
+        }
         public async Task<List<UserListDto>> SearchByNameAsync(string fullName)
         {
             if(string.IsNullOrWhiteSpace(fullName))

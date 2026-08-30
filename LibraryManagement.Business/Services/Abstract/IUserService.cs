@@ -6,7 +6,9 @@ namespace LibraryManagement.Business.Services.Abstract
 {
     public interface IUserService
     {
-        Task<bool> RegisterAsync(UserRegisterDto dto); 
+        Task<bool> RegisterMemberAsync(UserRegisterDto dto);
+        Task<bool> RegisterLibrarianAsync(UserRegisterDto dto);
+
         Task<UserLoginResultDto> LoginAsync(UserLoginDto dto);
         Task<List<UserListDto>> GetAllAsync();
         Task<UserDetailDto> GetByIdAsync(int id); //niye soru isareti

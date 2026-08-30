@@ -3,6 +3,7 @@ using LibraryManagement.Core.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.API.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryManagement.API.Controllers
 {
@@ -28,10 +29,20 @@ namespace LibraryManagement.API.Controllers
             return Ok(new { User = result, Token = JWT }); // new niye new 
         }
 
-        [HttpPost("register")] // NIYE REGISTER YAZDIK CUNKU REGISTER ICIN AYRI BIR POST METODU OLUSTURDUK
-        public async Task<IActionResult> Register(UserRegisterDto dto) // kayit basarili diyip tekrar login sayfasina yonlendiricek yada dogrudan ana sayfaya planlicaz
+        [HttpPost("register-member")] // NIYE REGISTER YAZDIK CUNKU REGISTER ICIN AYRI BIR POST METODU OLUSTURDUK
+        [Authorize(Roles = "LIBRARIAN")] // sadece admin register edebilir
+        public async Task<IActionResult> RegisterMemberAsync(UserRegisterDto dto) // kayit basarili diyip tekrar login sayfasina yonlendiricek yada dogrudan ana sayfaya planlicaz
         {
-            var result = await _userService.RegisterAsync(dto);
+            var result = await _userService.RegisterMemberAsync(dto);
+
+            return StatusCode(StatusCodes.Status201Created, result);
+        }
+
+        [HttpPost("register-librarian")]
+        [Authorize(Roles = "LIBRARIAN")]
+        public async Task<IActionResult> RegisterLibrarianAsync(UserRegisterDto dto)
+        {
+            var result = await _userService.RegisterLibrarianAsync(dto);
 
             return StatusCode(StatusCodes.Status201Created, result);
         }
