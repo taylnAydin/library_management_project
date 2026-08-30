@@ -1,20 +1,41 @@
+using LibraryManagement.API;
 using LibraryManagement.API.Middleware;
 using LibraryManagement.Business;
 using LibraryManagement.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+   
 builder.Services.AddBusinessServices();
 builder.Services.AddDataAccessService(builder.Configuration);
-
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+  options =>
+  {
+      options.TokenValidationParameters = new TokenValidationParameters // bak  authencition auhtrozioton farkli seyler
+      {
+          ValidateIssuer = true,
+          ValidIssuer = builder.Configuration["Jwt:Issuer"],
+          ValidateAudience = true,
+          ValidAudience = builder.Configuration["Jwt:Audience"],
+          ValidateLifetime = true,
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not found"))) ,
+      };
+  }
+ ); 
+   
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // generic class niye parantez var consturcot mic agirio
+builder.Services.AddApiServices();
+
 
 var app = builder.Build();
 app.UseExceptionHandler();
@@ -26,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

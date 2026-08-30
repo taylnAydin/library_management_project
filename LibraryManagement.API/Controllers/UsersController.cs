@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Business.Services.Abstract;
 using LibraryManagement.Core.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using LibraryManagement.Core.Enums;
+using System.Security.Claims;
+
 
 namespace LibraryManagement.API.Controllers
 
@@ -19,14 +23,30 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpGet] // attirubte ne demek etiket  c++ @ denk mi ??? Iactionresult http response döndürür hazir c# tipi return ok ne demek
+        [Authorize(Roles = "LIBRARIAN")] // niye burada
         public async Task<IActionResult> GetAll() {
             var users = await _userService.GetAllAsync();
             return Ok(users);
         }
 
         [HttpGet("{id}")] // niye burada
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> GetById(int id) {
             var user = await _userService.GetByIdAsync(id);
+            return Ok(user);
+        }
+
+
+        [HttpGet("me")]
+        [Authorize(Roles =  "MEMBER")]
+
+        public async Task<IActionResult> GetMe()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            int userId = int.Parse(userIdClaim!.Value); //niye soru isareti var useridclaim donen ne ki value dedik
+
+            var user = await _userService.GetByIdAsync(userId);
             return Ok(user);
         }
 
@@ -34,6 +54,7 @@ namespace LibraryManagement.API.Controllers
      
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> Update(int id, UserUpdateDto dto)
         {
             var result = await _userService.UpdateAsync(id, dto);
@@ -41,12 +62,14 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> Delete(int id) {
             var result = await _userService.DeleteAsync(id);
              return Ok(result);
         }
 
         [HttpGet("search")]
+        [Authorize(Roles = "LIBRARIAN")]
 
         public async Task<IActionResult> SearchByName(string fullName)
         {

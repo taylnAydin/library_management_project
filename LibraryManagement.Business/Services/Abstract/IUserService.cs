@@ -7,9 +7,9 @@ namespace LibraryManagement.Business.Services.Abstract
     public interface IUserService
     {
         Task<bool> RegisterAsync(UserRegisterDto dto); 
-        Task<bool> LoginAsync(UserLoginDto dto);
+        Task<UserLoginResultDto> LoginAsync(UserLoginDto dto);
         Task<List<UserListDto>> GetAllAsync();
-        Task<UserDetailDto?> GetByIdAsync(int id); //niye soru isareti
+        Task<UserDetailDto> GetByIdAsync(int id); //niye soru isareti
         Task<bool> UpdateAsync(int id, UserUpdateDto dto);
         Task<bool> DeleteAsync(int id);
 

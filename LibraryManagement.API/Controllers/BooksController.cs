@@ -2,6 +2,7 @@
 using LibraryManagement.Core.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryManagement.API.Controllers
 {
@@ -19,19 +20,21 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll() {
             var books = await _bookService.GetAllAsync();
             return Ok(books);
         }
 
         [HttpGet("{id}")]
-
+        [Authorize]
         public async Task<IActionResult> GetById(int id) {
             var book = await _bookService.GetByIdAsync(id);
             return Ok(book);
         }
 
         [HttpPost]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> Create(BookCreateDto dto)
         {
             var result = await _bookService.AddAsync(dto);
@@ -42,6 +45,7 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> Update(int id, BookUpdateDto dto)
         {
             var result = await _bookService.UpdateAsync(id, dto);
@@ -49,6 +53,7 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _bookService.DeleteAsync(id);

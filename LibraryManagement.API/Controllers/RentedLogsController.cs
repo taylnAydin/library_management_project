@@ -2,6 +2,8 @@
 using LibraryManagement.Core.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace LibraryManagement.API.Controllers
 {
@@ -17,6 +19,7 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> GetAll()
         {
             var rentedLogs = await _logService.GetAllAsync();
@@ -24,7 +27,7 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> GetByUserId(int userId)
         {
             var rentedLogs = await _logService.GetByUserIdAsync(userId);
@@ -32,7 +35,9 @@ namespace LibraryManagement.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> RentBook(RentalCreateDto dto)
+
         {
             var  result = await _logService.RentBookAsync(dto);
             return StatusCode(StatusCodes.Status201Created, result); // class parametre anlamadim
@@ -40,10 +45,22 @@ namespace LibraryManagement.API.Controllers
 
         //niye return pathi
         [HttpPut("return/{rentedLogId}")]
+        [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> ReturnBook(int rentedLogId) {
               var result = await _logService.ReturnBookAsync(rentedLogId);
             return Ok(result);
 
+        }
+
+        [HttpGet("my")]
+        [Authorize(Roles = "MEMBER")]
+        public async Task<IActionResult> GetMyRentals()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            int userId = int.Parse(userIdClaim!.Value);
+
+            var renterLogs = await _logService.GetByUserIdAsync(userId);
+            return Ok(renterLogs);
         }
 
     }

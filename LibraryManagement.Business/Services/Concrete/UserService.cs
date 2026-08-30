@@ -71,7 +71,7 @@ namespace LibraryManagement.Business.Services.Concrete
 
         }
 
-        public async Task<UserDetailDto?> GetByIdAsync(int id)
+        public async Task<UserDetailDto> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
@@ -108,11 +108,11 @@ namespace LibraryManagement.Business.Services.Concrete
 
 
 
-        public async Task<bool> LoginAsync(UserLoginDto dto)
+        public async Task<UserLoginResultDto> LoginAsync(UserLoginDto dto)
         {
             var user = await _userRepository.GetByEmailAsync(dto.Email);
 
-            if (user == null)
+            if (user == null)// burada kontrol ediyorum
             {
                 throw new UnauthorizedAccessException("Invalid email or password.");
             }
@@ -132,9 +132,9 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new UnauthorizedAccessException("Invalid email or password.");
             }
 
-           
+            return new UserLoginResultDto { Id = user.Id, Email = user.Email, Role = user.Role };
 
-            return true;
+
         }
 
         public async Task<bool> RegisterAsync(UserRegisterDto dto)
