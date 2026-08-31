@@ -1,12 +1,12 @@
-﻿using LibraryManagement.Core.Entities.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryManagement.Core.Entities.Concrete
+namespace LibraryManagement.DataAccess.DTOs
 {
-    public class Book : BaseEntity
+    public class BookDetailDto
     {
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Writer { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
@@ -15,7 +15,7 @@ namespace LibraryManagement.Core.Entities.Concrete
         public string Publisher { get; set; } = string.Empty;
         public DateOnly AddedDate { get; set; }
         public int Pages { get; set; }
+        public bool IsAvailable { get; set; }
 
-        public bool IsAvailable => Stock > 0; // computed property
     }
 }

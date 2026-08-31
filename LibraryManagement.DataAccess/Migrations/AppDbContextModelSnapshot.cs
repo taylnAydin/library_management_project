@@ -22,7 +22,7 @@ namespace LibraryManagement.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("LibraryManagement.Core.Entities.Concrete.Book", b =>
+            modelBuilder.Entity("LibraryManagement.DataAccess.Entities.Concrete.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace LibraryManagement.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LibraryManagement.Core.Entities.Concrete.RentedLog", b =>
+            modelBuilder.Entity("LibraryManagement.DataAccess.Entities.Concrete.RentedLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +148,7 @@ namespace LibraryManagement.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LibraryManagement.Core.Entities.Concrete.User", b =>
+            modelBuilder.Entity("LibraryManagement.DataAccess.Entities.Concrete.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -237,15 +237,15 @@ namespace LibraryManagement.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LibraryManagement.Core.Entities.Concrete.RentedLog", b =>
+            modelBuilder.Entity("LibraryManagement.DataAccess.Entities.Concrete.RentedLog", b =>
                 {
-                    b.HasOne("LibraryManagement.Core.Entities.Concrete.Book", "Book")
+                    b.HasOne("LibraryManagement.DataAccess.Entities.Concrete.Book", "Book")
                         .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("LibraryManagement.Core.Entities.Concrete.User", "User")
+                    b.HasOne("LibraryManagement.DataAccess.Entities.Concrete.User", "User")
                         .WithMany("RentedLogs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -256,7 +256,7 @@ namespace LibraryManagement.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Core.Entities.Concrete.User", b =>
+            modelBuilder.Entity("LibraryManagement.DataAccess.Entities.Concrete.User", b =>
                 {
                     b.Navigation("RentedLogs");
                 });

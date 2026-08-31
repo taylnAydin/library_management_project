@@ -51,7 +51,6 @@ namespace LibraryManagement.DataAccess.Migrations
                     gender = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     country = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     identity_card_no = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    is_active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
                 },
                 constraints: table =>

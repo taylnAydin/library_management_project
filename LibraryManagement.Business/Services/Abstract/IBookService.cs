@@ -1,4 +1,4 @@
-﻿using LibraryManagement.Core.DTOs;
+﻿using LibraryManagement.DataAccess.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;

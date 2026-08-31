@@ -1,5 +1,5 @@
 ﻿using LibraryManagement.API.Services.Abstract;
-using LibraryManagement.Core.DTOs;
+using LibraryManagement.DataAccess.DTOs;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;

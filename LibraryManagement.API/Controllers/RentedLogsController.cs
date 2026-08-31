@@ -1,10 +1,10 @@
 ﻿using LibraryManagement.Business.Services.Abstract;
-using LibraryManagement.Core.DTOs;
+using LibraryManagement.DataAccess.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using LibraryManagement.Core.Entities.Concrete;
+using LibraryManagement.DataAccess.Entities.Concrete;
 
 namespace LibraryManagement.API.Controllers
 {

@@ -1,4 +1,4 @@
-﻿using LibraryManagement.Core.DTOs;
+﻿using LibraryManagement.DataAccess.DTOs;
 
 namespace LibraryManagement.API.Services.Abstract
 {

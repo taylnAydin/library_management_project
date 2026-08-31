@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagement.Core.Interfaces
+namespace LibraryManagement.DataAccess.Repository.Abstract
 {
     public interface IGenericRepository <T> where T : class
     {

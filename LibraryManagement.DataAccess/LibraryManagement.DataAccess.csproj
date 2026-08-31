@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LibraryManagement.Core\LibraryManagement.Core.csproj" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

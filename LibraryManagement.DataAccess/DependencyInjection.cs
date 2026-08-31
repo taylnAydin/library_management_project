@@ -1,4 +1,4 @@
-﻿using LibraryManagement.Core.Interfaces;
+﻿using LibraryManagement.DataAccess.Repository.Abstract;
 using LibraryManagement.DataAccess.Context;
 using LibraryManagement.DataAccess.Repository.Concrete;
 using Microsoft.EntityFrameworkCore;

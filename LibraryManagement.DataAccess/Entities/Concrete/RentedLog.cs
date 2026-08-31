@@ -1,10 +1,10 @@
-﻿using LibraryManagement.Core.Entities.Abstract;
-using LibraryManagement.Core.Enums;
+﻿using LibraryManagement.DataAccess.Entities.Abstract;
+using LibraryManagement.DataAccess.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryManagement.Core.Entities.Concrete
+namespace LibraryManagement.DataAccess.Entities.Concrete
 {
     public class RentedLog:BaseEntity
     {

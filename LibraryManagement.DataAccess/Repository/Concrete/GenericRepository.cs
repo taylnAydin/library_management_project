@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks; // add if not already available via global usings
-using LibraryManagement.Core.Interfaces;
+using LibraryManagement.DataAccess.Repository.Abstract;
 using LibraryManagement.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,5 @@
 ﻿using LibraryManagement.Business.Services.Abstract;
-using LibraryManagement.Core.DTOs;
+using LibraryManagement.DataAccess.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.API.Services.Abstract;

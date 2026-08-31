@@ -1,7 +1,7 @@
 ﻿using LibraryManagement.Business.Services.Abstract;
-using LibraryManagement.Core.DTOs;
-using LibraryManagement.Core.Entities.Concrete;
-using LibraryManagement.Core.Interfaces;
+using LibraryManagement.DataAccess.DTOs;
+using LibraryManagement.DataAccess.Entities.Concrete;
+using LibraryManagement.DataAccess.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;

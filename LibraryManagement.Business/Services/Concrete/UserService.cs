@@ -1,9 +1,8 @@
 ﻿using LibraryManagement.Business.Services.Abstract;
-using LibraryManagement.Core.DTOs;
-using LibraryManagement.Core.Entities.Concrete;
-using LibraryManagement.Core.Enums;
-using LibraryManagement.Core.Interfaces;
-using LibraryManagement.DataAccess.Repository;
+using LibraryManagement.DataAccess.DTOs;
+using LibraryManagement.DataAccess.Entities.Concrete;
+using LibraryManagement.DataAccess.Enums;
+using LibraryManagement.DataAccess.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;

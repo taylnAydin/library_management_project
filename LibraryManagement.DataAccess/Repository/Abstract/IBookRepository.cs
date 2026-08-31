@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using LibraryManagement.Core.Entities.Concrete;
+using LibraryManagement.DataAccess.Entities.Concrete;
 
-namespace LibraryManagement.Core.Interfaces
+namespace LibraryManagement.DataAccess.Repository.Abstract
 {
     public interface IBookRepository : IGenericRepository<Book>
     {

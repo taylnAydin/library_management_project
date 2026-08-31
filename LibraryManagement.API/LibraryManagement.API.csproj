@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LibraryManagement.Business\LibraryManagement.Business.csproj" />
-    <ProjectReference Include="..\LibraryManagement.Core\LibraryManagement.Core.csproj" />
     <ProjectReference Include="..\LibraryManagement.DataAccess\LibraryManagement.DataAccess.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using LibraryManagement.Core.Entities.Concrete;
+using LibraryManagement.DataAccess.Entities.Concrete;
 
 namespace LibraryManagement.DataAccess.Context
 {

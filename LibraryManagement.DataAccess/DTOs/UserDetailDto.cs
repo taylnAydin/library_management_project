@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using LibraryManagement.Core.Enums;
+using LibraryManagement.DataAccess.Enums;
 
-namespace LibraryManagement.Core.DTOs
+namespace LibraryManagement.DataAccess.DTOs
 {
     public class UserDetailDto
     {

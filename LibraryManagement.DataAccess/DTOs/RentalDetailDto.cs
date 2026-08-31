@@ -1,7 +1,7 @@
-﻿using LibraryManagement.Core.Enums;
+﻿using LibraryManagement.DataAccess.Enums;
 using System;
 
-namespace LibraryManagement.Core.DTOs
+namespace LibraryManagement.DataAccess.DTOs
 {
     public class RentalDetailDto
     {
