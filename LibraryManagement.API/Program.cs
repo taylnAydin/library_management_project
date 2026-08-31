@@ -38,6 +38,7 @@ builder.Services.AddAuthorization();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // generic class niye parantez var consturcot mic agirio
+builder.Services.AddProblemDetails(); // bunu niye ekledim
 builder.Services.AddApiServices();
 
 builder.Services.AddControllers()

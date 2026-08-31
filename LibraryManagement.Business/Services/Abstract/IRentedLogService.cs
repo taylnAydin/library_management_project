@@ -10,5 +10,7 @@ namespace LibraryManagement.Business.Services.Abstract
         Task<List<RentalDetailDto>> GetByUserIdAsync(int userId);
         Task<bool> RentBookAsync(RentalCreateDto dto);
         Task<ReturnBookResultDto> ReturnBookAsync(int rentedLogId);
+
+        Task<bool> DeleteAsync(int rentedLogId);
     }
 }

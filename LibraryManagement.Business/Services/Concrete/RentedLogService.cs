@@ -25,6 +25,28 @@ namespace LibraryManagement.Business.Services.Concrete
             _userRepository = userRepository;
 
         }
+
+        public async Task<bool> DeleteAsync(int rentedLogId)
+        {
+            if (rentedLogId < 0) {
+                throw new ArgumentException("User ID must be greater than 0.");
+            }
+
+            var rentedLog = await _rentedLogRepository.GetByIdAsync(rentedLogId);
+
+            if (rentedLog == null || rentedLog.IsDeleted) {
+
+                throw new KeyNotFoundException($"{rentedLog} id is not found");
+            }
+
+
+            rentedLog.IsDeleted = true;
+
+            _rentedLogRepository.Update(rentedLog);
+            await _rentedLogRepository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<List<RentalListDto>> GetAllAsync()
         {
             var rentedLogs = await _rentedLogRepository.GetAllWithDetailsAsync();
@@ -72,8 +94,16 @@ namespace LibraryManagement.Business.Services.Concrete
                 Id = r.Id,
                 UserId = r.UserId,
                 BookId = r.BookId,
+
                 BookTitle = r.Book != null ? r.Book.Title : string.Empty,
+                BookWriter = r.Book != null ? r.Book.Writer : string.Empty,
+                BookCategory = r.Book != null ? r.Book.Category : string.Empty,
+
                 UserFullName = r.User != null ? $"{r.User.Name} {r.User.Surname}".Trim() : string.Empty,
+                UserEmail = r.User != null ? r.User.Email : string.Empty,
+                UserPhone = r.User != null ? r.User.Phone : string.Empty,
+                UserIdentityCardNo = r.User != null ? r.User.IdentityCardNo : string.Empty,
+
                 StartDate = r.StartDate,
                 DueDate = r.DueDate,
                 ReturnDate = r.ReturnDate,
@@ -87,7 +117,7 @@ namespace LibraryManagement.Business.Services.Concrete
         {
             if (dto == null)
             {
-                throw new ArgumentNullException(nameof(dto), "Rental data cannot be null.");
+                throw new ArgumentNullException("Rental data cannot be null.");
             }
 
             if (dto.UserId <= 0)

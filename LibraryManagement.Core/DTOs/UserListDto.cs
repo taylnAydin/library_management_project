@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,5 +11,7 @@ namespace LibraryManagement.Core.DTOs
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
         public string IdentityCardNo { get; set; } = string.Empty;
+
+        public UserRole Role { get; set; }
     }
 }

@@ -79,9 +79,6 @@ namespace LibraryManagement.DataAccess.Context
                     .HasColumnName("identity_card_no")
                     .HasMaxLength(20);
 
-                entity.Property(u => u.IsActive)
-                    .HasColumnName("is_active")
-                    .HasDefaultValue(true);
 
                 entity.Property(u => u.IsDeleted)
                     .HasColumnName("is_deleted")

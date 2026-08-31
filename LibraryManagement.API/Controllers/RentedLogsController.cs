@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using LibraryManagement.Core.Entities.Concrete;
 
 namespace LibraryManagement.API.Controllers
 {
@@ -39,7 +40,7 @@ namespace LibraryManagement.API.Controllers
         public async Task<IActionResult> RentBook(RentalCreateDto dto)
 
         {
-            var  result = await _logService.RentBookAsync(dto);
+            var result = await _logService.RentBookAsync(dto);
             return StatusCode(StatusCodes.Status201Created, result); // class parametre anlamadim
         }
 
@@ -47,7 +48,7 @@ namespace LibraryManagement.API.Controllers
         [HttpPut("return/{rentedLogId}")]
         [Authorize(Roles = "LIBRARIAN")]
         public async Task<IActionResult> ReturnBook(int rentedLogId) {
-              var result = await _logService.ReturnBookAsync(rentedLogId);
+            var result = await _logService.ReturnBookAsync(rentedLogId);
             return Ok(result);
 
         }
@@ -61,6 +62,14 @@ namespace LibraryManagement.API.Controllers
 
             var renterLogs = await _logService.GetByUserIdAsync(userId);
             return Ok(renterLogs);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "LIBRARIAN")]
+
+        public async Task<IActionResult> Delete(int id) {
+            var result =await  _logService.DeleteAsync(id);
+            return Ok(result);
         }
 
     }

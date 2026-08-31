@@ -17,6 +17,6 @@ namespace LibraryManagement.Core.DTOs
         public string Country { get; set; } = string.Empty;
         public Gender Gender { get; set; }
         public UserRole Role { get; set; }
-        public bool IsActive { get; set; }
+       
     }
 }

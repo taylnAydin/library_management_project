@@ -19,7 +19,7 @@ namespace LibraryManagement.Core.Entities.Concrete
         public Gender Gender { get; set; } 
         public string Country { get; set; } = string.Empty;
         public string IdentityCardNo { get; set; } = string.Empty;
-        public bool IsActive { get; set; }
+     
 
         public ICollection<RentedLog> RentedLogs { get; set; } = new List<RentedLog>();
     }

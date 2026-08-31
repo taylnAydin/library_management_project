@@ -64,7 +64,8 @@ namespace LibraryManagement.Business.Services.Concrete
                 Id = u.Id,
                 Name = u.Name,
                 Surname = u.Surname,
-                IdentityCardNo = u.IdentityCardNo
+                IdentityCardNo = u.IdentityCardNo,
+                Role =u.Role,
             }).ToList();
 
             return userDtos;
@@ -102,7 +103,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 Country = user.Country,
                 Gender = user.Gender,
                 Role = user.Role,
-                IsActive = user.IsActive
+              
             };
         }
 
@@ -141,7 +142,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 throw new UnauthorizedAccessException("Invalid email or password.");
             }
 
-            if (user.IsDeleted || !user.IsActive)
+            if (user.IsDeleted)
             {
                 throw new UnauthorizedAccessException("Invalid email or password.");
             }
@@ -262,7 +263,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 Gender = dto.Gender,
                 Password = hashedPassword,
                 Role = UserRole.MEMBER, 
-                IsActive = true
+           
             };
 
             await _userRepository.AddAsync(newUser);
@@ -300,7 +301,7 @@ namespace LibraryManagement.Business.Services.Concrete
                 Gender = dto.Gender,
                 Password = hashedPassword,
                 Role = UserRole.LIBRARIAN,
-                IsActive = true
+               
             };
 
             await _userRepository.AddAsync(newUser);
